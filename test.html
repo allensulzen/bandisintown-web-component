@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/bandisintown-web-component@0.0.3/dist/esm/bandisintown-web-component.js"></script>
+</head>
+<body>
+    <biit-artist background-color="black" text-color="red"></biit-artist>
+    <script>
+        // fetch data from https://ancient-infant-bandisintown.vercel.app/api/bandisintown
+        fetch('https://ancient-infant-bandisintown.vercel.app/api/bandisintown')
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+            const artist = document.querySelector('biit-artist');
+            artist.artist = data.artist;
+            artist.events = data.events;
+          });
+      </script>
+</body>
+</html>

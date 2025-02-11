@@ -13,7 +13,7 @@ The Bandsintown Web Component allows you to easily integrate concert and tour in
 To start using the Bandsintown Web Component, clone this repo to a new directory:
 
 ```bash
-git clone https://github.com/your-username/bandisintown-web-component.git
+git clone https://github.com/allensulzen/bandisintown-web-component.git
 cd bandisintown-web-component
 git remote rm origin
 ```
