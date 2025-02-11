@@ -1,7 +1,7 @@
 {
   "name": "bandisintown-web-component",
   "version": "0.0.2",
-  "description": "Stencil Component Starter",
+  "description": "A web component for displaying BandIsInTown events",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
   "types": "dist/types/index.d.ts",
