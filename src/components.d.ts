@@ -6,56 +6,50 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-    interface MyComponent {
-        /**
-          * The first name
-         */
-        "first": string;
-        /**
-          * The last name
-         */
-        "last": string;
-        /**
-          * The middle name
-         */
-        "middle": string;
+    interface BiitArtist {
+        "artist": any;
+        "backgroundColor": string;
+        "buttonBgColor": string;
+        "buttonBgHoverColor": string;
+        "buttonTextColor": string;
+        "events": [];
+        "fontFamily": string;
+        "textColor": string;
+        "textHoverColor": string;
     }
 }
 declare global {
-    interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
+    interface HTMLBiitArtistElement extends Components.BiitArtist, HTMLStencilElement {
     }
-    var HTMLMyComponentElement: {
-        prototype: HTMLMyComponentElement;
-        new (): HTMLMyComponentElement;
+    var HTMLBiitArtistElement: {
+        prototype: HTMLBiitArtistElement;
+        new (): HTMLBiitArtistElement;
     };
     interface HTMLElementTagNameMap {
-        "my-component": HTMLMyComponentElement;
+        "biit-artist": HTMLBiitArtistElement;
     }
 }
 declare namespace LocalJSX {
-    interface MyComponent {
-        /**
-          * The first name
-         */
-        "first"?: string;
-        /**
-          * The last name
-         */
-        "last"?: string;
-        /**
-          * The middle name
-         */
-        "middle"?: string;
+    interface BiitArtist {
+        "artist"?: any;
+        "backgroundColor"?: string;
+        "buttonBgColor"?: string;
+        "buttonBgHoverColor"?: string;
+        "buttonTextColor"?: string;
+        "events"?: [];
+        "fontFamily"?: string;
+        "textColor"?: string;
+        "textHoverColor"?: string;
     }
     interface IntrinsicElements {
-        "my-component": MyComponent;
+        "biit-artist": BiitArtist;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "biit-artist": LocalJSX.BiitArtist & JSXBase.HTMLAttributes<HTMLBiitArtistElement>;
         }
     }
 }
