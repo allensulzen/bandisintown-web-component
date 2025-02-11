@@ -32,3 +32,6 @@ npm run build
 ```
 
 You can also use a CDN link to simplify things.
+```html
+<script type="module" src="https://cdn.jsdelivr.net/npm/bandisintown-web-component@latest/dist/esm/bandisintown-web-component.js"></script>
+```
