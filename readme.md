@@ -1,37 +1,164 @@
-[![Built With Stencil](https://img.shields.io/badge/-Built%20With%20Stencil-16161d.svg?logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MTIgNTEyOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI%2BCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI%2BCgkuc3Qwe2ZpbGw6I0ZGRkZGRjt9Cjwvc3R5bGU%2BCjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik00MjQuNywzNzMuOWMwLDM3LjYtNTUuMSw2OC42LTkyLjcsNjguNkgxODAuNGMtMzcuOSwwLTkyLjctMzAuNy05Mi43LTY4LjZ2LTMuNmgzMzYuOVYzNzMuOXoiLz4KPHBhdGggY2xhc3M9InN0MCIgZD0iTTQyNC43LDI5Mi4xSDE4MC40Yy0zNy42LDAtOTIuNy0zMS05Mi43LTY4LjZ2LTMuNkgzMzJjMzcuNiwwLDkyLjcsMzEsOTIuNyw2OC42VjI5Mi4xeiIvPgo8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNDI0LjcsMTQxLjdIODcuN3YtMy42YzAtMzcuNiw1NC44LTY4LjYsOTIuNy02OC42SDMzMmMzNy45LDAsOTIuNywzMC43LDkyLjcsNjguNlYxNDEuN3oiLz4KPC9zdmc%2BCg%3D%3D&colorA=16161d&style=flat-square)](https://stenciljs.com)
+# Biit Artist Web Component
 
-# Bandisintown Web Component
+The **Biit Artist Web Component** is a Stencil-built web component that displays artist information and upcoming events. It does not fetch data itself but requires you to provide the artist and event data fetched from the Bandsintown API.
 
-This project is a web component built using Stencil to display information from the Bandsintown API.
+## Installation
 
-## Overview
+You can install the package via npm:
 
-The Bandsintown Web Component allows you to easily integrate concert and tour information into your website. It fetches data from the Bandsintown API and displays it in a customizable format.
-
-## Getting Started
-
-To start using the Bandsintown Web Component, clone this repo to a new directory:
-
-```bash
-git clone https://github.com/allensulzen/bandisintown-web-component.git
-cd bandisintown-web-component
-git remote rm origin
+```sh
+npm i bandisintown-web-component
 ```
 
-and run:
+Or include the component’s script via the CDN in your HTML file:
 
-```bash
-npm install
-npm start
-```
-
-To build the component for production, run:
-
-```bash
-npm run build
-```
-
-You can also use a CDN link to simplify things.
 ```html
 <script type="module" src="https://cdn.jsdelivr.net/npm/bandisintown-web-component@latest/dist/esm/bandisintown-web-component.js"></script>
 ```
+
+## Usage
+
+You can use `<biit-artist>` in any modern framework or directly in HTML. Below are examples for different environments.
+
+### Fetching Data
+
+You will need to fetch artist and event data from the Bandsintown API before passing it to the component:
+
+- **Artist Info:**
+  ```
+  https://rest.bandsintown.com/artists/{{artist_name}}/?app_id=yOUrSuP3r3ven7aPp-id
+  ```
+- **Events:**
+  ```
+  https://rest.bandsintown.com/artists/{{artist_name}}/events/?app_id=yOUrSuP3r3ven7aPp-id
+  ```
+
+### Basic HTML Usage
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Biit Artist Demo</title>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/bandisintown-web-component@latest/dist/esm/bandisintown-web-component.js"></script>
+  </head>
+  <body>
+    <biit-artist background-color="black" text-color="red"></biit-artist>
+    <script>
+      const artistName = 'Coldplay';
+      const appId = 'yOUrSuP3r3ven7aPp-id';
+      
+      Promise.all([
+        fetch(`https://rest.bandsintown.com/artists/${artistName}/?app_id=${appId}`).then(res => res.json()),
+        fetch(`https://rest.bandsintown.com/artists/${artistName}/events/?app_id=${appId}`).then(res => res.json())
+      ]).then(([artist, events]) => {
+        const biitArtist = document.querySelector('biit-artist');
+        biitArtist.artist = artist;
+        biitArtist.events = events;
+      });
+    </script>
+  </body>
+</html>
+```
+
+### React Usage
+
+```jsx
+import React, { useEffect, useRef } from 'react';
+import 'bandisintown-web-component';
+
+function BiitArtistComponent() {
+  const artistRef = useRef(null);
+  const artistName = 'Coldplay';
+  const appId = 'yOUrSuP3r3ven7aPp-id';
+
+  useEffect(() => {
+    Promise.all([
+      fetch(`https://rest.bandsintown.com/artists/${artistName}/?app_id=${appId}`).then(res => res.json()),
+      fetch(`https://rest.bandsintown.com/artists/${artistName}/events/?app_id=${appId}`).then(res => res.json())
+    ]).then(([artist, events]) => {
+      if (artistRef.current) {
+        artistRef.current.artist = artist;
+        artistRef.current.events = events;
+      }
+    });
+  }, []);
+
+  return <biit-artist ref={artistRef} background-color="black" text-color="red"></biit-artist>;
+}
+
+export default BiitArtistComponent;
+```
+
+### Vue Usage
+
+```vue
+<template>
+  <biit-artist ref="artist" background-color="black" text-color="red"></biit-artist>
+</template>
+
+<script>
+import 'bandisintown-web-component';
+
+export default {
+  mounted() {
+    const artistName = 'Coldplay';
+    const appId = 'yOUrSuP3r3ven7aPp-id';
+
+    Promise.all([
+      fetch(`https://rest.bandsintown.com/artists/${artistName}/?app_id=${appId}`).then(res => res.json()),
+      fetch(`https://rest.bandsintown.com/artists/${artistName}/events/?app_id=${appId}`).then(res => res.json())
+    ]).then(([artist, events]) => {
+      this.$refs.artist.artist = artist;
+      this.$refs.artist.events = events;
+    });
+  },
+};
+</script>
+```
+
+### Svelte Usage
+
+```svelte
+<script>
+  import 'bandisintown-web-component';
+  let artist;
+  const artistName = 'Coldplay';
+  const appId = 'yOUrSuP3r3ven7aPp-id';
+
+  Promise.all([
+    fetch(`https://rest.bandsintown.com/artists/${artistName}/?app_id=${appId}`).then(res => res.json()),
+    fetch(`https://rest.bandsintown.com/artists/${artistName}/events/?app_id=${appId}`).then(res => res.json())
+  ]).then(([artistData, eventsData]) => {
+    artist.artist = artistData;
+    artist.events = eventsData;
+  });
+</script>
+
+<biit-artist bind:this={artist} background-color="black" text-color="red"></biit-artist>
+```
+
+## Properties
+
+The `<biit-artist>` component supports the following properties:
+
+| Property             | Type    | Description |
+|----------------------|---------|-------------|
+| `artist`            | object  | Artist information fetched from the Bandsintown API. |
+| `events`            | array   | List of upcoming events. |
+| `backgroundColor`   | string  | Background color of the component. |
+| `textColor`         | string  | Primary text color. |
+| `textHoverColor`    | string  | Text color on hover. |
+| `fontFamily`        | string  | Font family for text. |
+| `buttonBgColor`     | string  | Background color for buttons. |
+| `buttonTextColor`   | string  | Text color for buttons. |
+| `buttonBgHoverColor` | string | Background color for buttons on hover. |
+
+## Repository
+
+View the source code and contribute at: [GitHub Repository](https://github.com/allensulzen/bandisintown-web-component)
+
+## License
+
+This project is open-source under the [MIT License](LICENSE).
